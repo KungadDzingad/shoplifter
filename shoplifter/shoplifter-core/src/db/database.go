@@ -1,9 +1,9 @@
 package database
 
-import "github.com/KungadDzingad/shoplifter-common/database"
+import commonDB "github.com/KungadDzingad/shoplifter-common/database"
 
-var Db database.Dbinstance
+var Db commonDB.Dbinstance
 
 func ConnectDb() {
-	Db = database.ConnectDb()
+	Db = commonDB.ConnectDb()
 }

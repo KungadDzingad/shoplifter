@@ -9,8 +9,10 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./shoplifter-core:/usr/src/app
+      - .:/usr/src/app
     command: air ./src/main.go -b 0.0.0.0
+    depends_on:
+      - db 
 
   db:
     image: postgres:alpine
@@ -19,9 +21,9 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     ports:
-     - "5432:5432"
+     - "15432:5432"
     volumes:
       - postgres-db:/var/lib/postgresql/data
-
+    
 volumes:
   postgres-db:

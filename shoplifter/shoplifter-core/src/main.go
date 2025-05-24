@@ -1,12 +1,11 @@
 package main
 
 import (
-	"github.com/KungadDzingad/shoplifter/shoplifter-common/database"
+	database "github.com/KungadDzingad/shoplifter-core/src/db"
 	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-
 	database.ConnectDb()
 
 	app := fiber.New()

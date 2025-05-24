@@ -2,15 +2,25 @@ FROM golang:1.24.2
 
 WORKDIR /usr/src/app
 
-COPY shoplifter-core/go.mod shoplifter-core/go.sum ./
+# COPY shoplifter-core/go.mod shoplifter-core/go.sum ./
 
+COPY .env .
+COPY go.work ./
+COPY shoplifter-core/. ./shoplifter-core
+COPY common/. ./common
+
+RUN go work sync
+
+
+
+WORKDIR /usr/src/app/shoplifter-core
 RUN go mod tidy
+
+WORKDIR /usr/src/app/common
+RUN go mod tidy
+
+WORKDIR /usr/src/app
 RUN go install github.com/air-verse/air@latest
 
-COPY shared/. .
-
-COPY shoplifter-core/. .
-COPY .env .
-
+WORKDIR /usr/src/app/shoplifter-core
 RUN go build -o ./tmp/main ./src/main.go
-

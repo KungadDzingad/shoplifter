@@ -1,4 +1,4 @@
-module github.com/KungadDzingad/shoplifter/shoplifter-common
+module github.com/KungadDzingad/shoplifter-common
 
 go 1.24.2
 
