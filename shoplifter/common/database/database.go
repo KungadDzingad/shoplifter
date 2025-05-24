@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/KungadDzingad/shoplifter-common/models"
+	"github.com/KungadDzingad/shoplifter/shoplifter-common/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
