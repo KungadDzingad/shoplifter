@@ -1,7 +1,2 @@
-root = "."
-tmp_dir = "tmp"
-
 [build]
-
-#asdasdads
-    cmd = "go build -o ./tmp/main ./cmd"
+cmd = "go build -o ./tmp/main ./src/main.go"

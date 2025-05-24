@@ -1,0 +1,3 @@
+tmp/*
+shoplifter-core/tmp
+.env

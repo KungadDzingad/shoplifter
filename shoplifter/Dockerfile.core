@@ -1,0 +1,16 @@
+FROM golang:1.24.2
+
+WORKDIR /usr/src/app
+
+COPY shoplifter-core/go.mod shoplifter-core/go.sum ./
+
+RUN go mod tidy
+RUN go install github.com/air-verse/air@latest
+
+COPY shared/. .
+
+COPY shoplifter-core/. .
+COPY .env .
+
+RUN go build -o ./tmp/main ./src/main.go
+
