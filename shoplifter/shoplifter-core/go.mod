@@ -1,6 +1,10 @@
-module github.com/KungadDzingad/shoplifter-core
+module github.com/KungadDzingad/shoplifter/shoplifter-core
 
 go 1.24.2
+
+require(
+	github.com/KungadDzingad/shoplifter-common v0.0.0
+)
 
 require github.com/gofiber/fiber/v2 v2.52.8
 
@@ -19,6 +23,3 @@ require (
 	golang.org/x/sys v0.28.0 // indirect
 )
 
-require(
-	github.com/KungadDzingad/shoplifter-common 
-)

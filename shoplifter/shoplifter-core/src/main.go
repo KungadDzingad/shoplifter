@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/KungadDzingad/shoplifter-common/database"
+	"github.com/KungadDzingad/shoplifter/shoplifter-common/database"
 	"github.com/gofiber/fiber/v2"
 )
 
