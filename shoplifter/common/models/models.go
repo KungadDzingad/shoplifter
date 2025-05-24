@@ -6,5 +6,5 @@ type User struct {
 	gorm.Model
 	Mail     string `json:"mail" gorm:"primaryKey"`
 	Username string `json:"username" `
-	Password string `json:"password"`
+	Password string `json:"password,omitempty"`
 }

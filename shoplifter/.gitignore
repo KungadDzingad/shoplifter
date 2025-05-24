@@ -1,3 +1,5 @@
 tmp/*
 shoplifter-core/tmp
 .env
+
+./pomoc.txt

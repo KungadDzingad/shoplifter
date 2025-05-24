@@ -21,7 +21,13 @@ func PostUser(ctx *fiber.Ctx) error {
 
 	defer log.Info(fmt.Sprintf("User %s saved", user.Username))
 
-	database.CONNECTION.Db.Create(&user)
-
+	database.DB.Db.Create(&user)
 	return ctx.Status(200).JSON(user)
+}
+
+func GetUsers(ctx *fiber.Ctx) error {
+	users := []models.User{}
+
+	database.DB.Db.Find(&users)
+	return ctx.Status(200).JSON(users)
 }
