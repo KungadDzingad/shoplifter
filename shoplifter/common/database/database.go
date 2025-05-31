@@ -27,7 +27,7 @@ func ConnectDb() Dbinstance {
 
 	db, err := gorm.Open(postgres.Open(dataSourceName),
 		&gorm.Config{
-			Logger: logger.Default.LogMode(logger.Info),
+			Logger: logger.Default.LogMode(logger.Silent),
 		})
 
 	if err != nil {
@@ -37,7 +37,9 @@ func ConnectDb() Dbinstance {
 
 	log.Println("Connected to database")
 	db.Logger = logger.Default.LogMode(logger.Info)
+
 	db.AutoMigrate(&models.User{})
+
 	return Dbinstance{
 		Db: db,
 	}

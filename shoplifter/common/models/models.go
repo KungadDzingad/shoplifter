@@ -1,10 +1,17 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
-	gorm.Model
 	Mail     string `json:"mail" gorm:"primaryKey"`
 	Username string `json:"username" `
 	Password string `json:"password,omitempty"`
+
+	CreatedAt time.Time      `json:"-"`
+	UpdatedAt time.Time      `json:"-"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }

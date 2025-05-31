@@ -1,5 +1,7 @@
 tmp/*
-shoplifter-core/tmp
 .env
 
-./pomoc.txt
+shoplifter-core/tmp
+shoplifter-gateway/tmp
+
+pomoc.txt

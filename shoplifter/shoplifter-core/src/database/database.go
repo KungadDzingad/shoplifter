@@ -4,8 +4,15 @@ import (
 	commonDB "github.com/KungadDzingad/shoplifter-common/database"
 )
 
-var DB commonDB.Dbinstance
+var db commonDB.Dbinstance
+
+func Connection() *commonDB.Dbinstance {
+	if db.Db == nil {
+		ConnectDb()
+	}
+	return &db
+}
 
 func ConnectDb() {
-	DB = commonDB.ConnectDb()
+	db = commonDB.ConnectDb()
 }

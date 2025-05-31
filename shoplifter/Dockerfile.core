@@ -2,8 +2,6 @@ FROM golang:1.24.2
 
 WORKDIR /usr/src/app
 
-# COPY shoplifter-core/go.mod shoplifter-core/go.sum ./
-
 COPY .env .
 COPY go.work ./
 COPY shoplifter-core/. ./shoplifter-core

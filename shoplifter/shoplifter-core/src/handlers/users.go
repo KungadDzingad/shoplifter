@@ -1,33 +1,55 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
 
 	"github.com/KungadDzingad/shoplifter-common/models"
 	database "github.com/KungadDzingad/shoplifter-core/src/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
+	"github.com/segmentio/kafka-go"
 )
 
-func PostUser(ctx *fiber.Ctx) error {
-	user := new(models.User)
+func PostUser(c *fiber.Ctx) {
+	// user := new(models.User)
+	// db := database.Connection()
 
-	if err := ctx.BodyParser(user); err != nil {
-		log.Error(err.Error())
-		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err.Error(),
-		})
-	}
+	// if db == nil {
+	// 	return c.SendString("Database issue")
+	// }
 
-	defer log.Info(fmt.Sprintf("User %s saved", user.Username))
+	// if err := c.BodyParser(user); err != nil {
+	// 	log.Error(err.Error())
+	// 	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+	// 		"message": err.Error(),
+	// 	})
+	// }
 
-	database.DB.Db.Create(&user)
-	return ctx.Status(200).JSON(user)
+	// defer log.Info(fmt.Sprintf("User %s saved", user.Username))
+
+	// database.Connection().Db.Create(&user)
+	// return c.Status(200).JSON(user)
 }
 
-func GetUsers(ctx *fiber.Ctx) error {
-	users := []models.User{}
+func handleGetUsers(correlationID string, writer *kafka.Writer) {
+	db := database.Connection()
+	if db == nil {
+		sendKafkaResponse(writer, correlationID, 500, []byte(`"Database issue"`))
+		return
+	}
 
-	database.DB.Db.Find(&users)
-	return ctx.Status(200).JSON(users)
+	var users []models.User
+	if err := db.Db.Find(&users).Error; err != nil {
+		sendKafkaResponse(writer, correlationID, 500, []byte(`"Database error"`))
+		return
+	}
+
+	data, err := json.Marshal(users)
+	if err != nil {
+		sendKafkaResponse(writer, correlationID, 500, []byte(`"Serialization error"`))
+		return
+	}
+	log.Info("get-users", data)
+
+	sendKafkaResponse(writer, correlationID, 200, data)
 }
